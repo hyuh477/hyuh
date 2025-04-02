@@ -483,110 +483,110 @@
 	 <button id="scrollToBottom" onclick="scrollToBottom()">跳到最下面</button>
    
     <script>
-    const restaurantsPerPage = 8; // 每頁顯示8個餐廳
-    const restaurants = document.querySelectorAll('.restaurant'); // 取得所有餐廳元素
-    const pagination = document.getElementById('pagination');
-    const totalRestaurants = restaurants.length; // 取得餐廳總數
-    const totalPages = Math.ceil(totalRestaurants / restaurantsPerPage); // 計算總頁數
+        // 您的原始 JavaScript 代碼
+        const restaurantsPerPage = 8; // 每頁顯示8個餐廳
+        const restaurants = document.querySelectorAll('.restaurant'); // 取得所有餐廳元素
+        const pagination = document.getElementById('pagination');
+        const totalRestaurants = restaurants.length; // 取得餐廳總數
+        const totalPages = Math.ceil(totalRestaurants / restaurantsPerPage); // 計算總頁數
 
-    let currentPage = 1; // 記錄當前頁數
+        let currentPage = 1; // 記錄當前頁數
 
-    // 根據頁碼顯示對應的餐廳
-    function goToPage(pageNumber) {
-        currentPage = pageNumber; // 更新當前頁數
-        const start = (pageNumber - 1) * restaurantsPerPage;
-        const end = start + restaurantsPerPage;
+        // 根據頁碼顯示對應的餐廳
+        function goToPage(pageNumber) {
+            currentPage = pageNumber; // 更新當前頁數
+            const start = (pageNumber - 1) * restaurantsPerPage;
+            const end = start + restaurantsPerPage;
 
-        // 隱藏所有餐廳
-        restaurants.forEach((restaurant, index) => {
-            if (index >= start && index < end) {
-                restaurant.style.display = 'block'; // 顯示當前頁面的餐廳
-            } else {
-                restaurant.style.display = 'none'; // 隱藏其他頁面的餐廳
-            }
-        });
-		
-		// 自動回到最上面
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+            // 隱藏所有餐廳
+            restaurants.forEach((restaurant, index) => {
+                if (index >= start && index < end) {
+                    restaurant.style.display = 'block'; // 顯示當前頁面的餐廳
+                } else {
+                    restaurant.style.display = 'none'; // 隱藏其他頁面的餐廳
+                }
+            });
+            
+            // 自動回到最上面
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
+            // 更新分頁按鈕的顯示狀態
+            updatePaginationButtons();
+        }
 
         // 更新分頁按鈕的顯示狀態
-        updatePaginationButtons();
-    }
+        function updatePaginationButtons() {
+            const paginationContainer = document.querySelector('.pagination');
+            paginationContainer.innerHTML = ''; // 清空現有的按鈕
 
-    // 更新分頁按鈕的顯示狀態
-    function updatePaginationButtons() {
-        const paginationContainer = document.querySelector('.pagination');
-        paginationContainer.innerHTML = ''; // 清空現有的按鈕
+            const startPage = Math.max(currentPage - 4, 1); // 顯示更多前面的頁碼
+            const endPage = Math.min(currentPage + 6, totalPages); // 顯示更多後面的頁碼
 
-       const startPage = Math.max(currentPage - 4, 1); // 顯示更多前面的頁碼
-const endPage = Math.min(currentPage + 6, totalPages); // 顯示更多後面的頁碼
-
-        // 生成每頁的分頁按鈕
-        for (let i = startPage; i <= endPage; i++) {
-            const button = document.createElement('button');
-            button.textContent = i;
-            button.onclick = () => goToPage(i); // 點擊按鈕跳轉到相應頁數
-            if (i === currentPage) {
-                button.classList.add('active'); // 當前頁按鈕加上 active 類別
+            // 生成每頁的分頁按鈕
+            for (let i = startPage; i <= endPage; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.onclick = () => goToPage(i); // 點擊按鈕跳轉到相應頁數
+                if (i === currentPage) {
+                    button.classList.add('active'); // 當前頁按鈕加上 active 類別
+                }
+                paginationContainer.appendChild(button);
             }
-            paginationContainer.appendChild(button);
+
+            // 生成上一頁和下一頁的按鈕
+            const prevButton = document.createElement('button');
+            prevButton.textContent = 'Prev';
+            prevButton.onclick = () => {
+                if (currentPage > 1) goToPage(currentPage - 1);
+            };
+
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Next';
+            nextButton.onclick = () => {
+                if (currentPage < totalPages) goToPage(currentPage + 1);
+            };
+
+            // 添加上一頁和下一頁的按鈕到分頁區
+            paginationContainer.insertBefore(prevButton, paginationContainer.firstChild);
+            paginationContainer.appendChild(nextButton);
         }
 
-        // 生成上一頁和下一頁的按鈕
-        const prevButton = document.createElement('button');
-        prevButton.textContent = 'Prev';
-        prevButton.onclick = () => {
-            if (currentPage > 1) goToPage(currentPage - 1);
-        };
+        // 回到最上面按鈕
+        window.addEventListener('scroll', function () {
+            let button = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) { // 滾動超過 300px 顯示按鈕
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        });
 
-        const nextButton = document.createElement('button');
-        nextButton.textContent = 'Next';
-        nextButton.onclick = () => {
-            if (currentPage < totalPages) goToPage(currentPage + 1);
-        };
+        document.querySelector('.back-to-top').addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
-        // 添加上一頁和下一頁的按鈕到分頁區
-        paginationContainer.insertBefore(prevButton, paginationContainer.firstChild);
-        paginationContainer.appendChild(nextButton);
-    }
-
-    // 回到最上面按鈕
-    window.addEventListener('scroll', function () {
-        let button = document.querySelector('.back-to-top');
-        if (window.scrollY > 300) { // 滾動超過 300px 顯示按鈕
-            button.style.display = 'block';
-        } else {
-            button.style.display = 'none';
+        // 廣告關閉功能
+        function closeAd(adId) {
+            document.getElementById(adId).style.display = "none";
         }
-    });
 
-    document.querySelector('.back-to-top').addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        // 跳到最下面
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        function confirmCloseAd(adId) {
+            let reason = prompt("請問您為什麼要關閉這則廣告？\n1. 不感興趣\n2. 擋到你看美食了\n3. 我就不想看廣告\n4. 其他");
+            
+            if (reason !== null) { 
+                document.getElementById(adId).style.display = "none";
+                console.log("使用者關閉廣告，原因：" + reason); // 可以將這個記錄發送到伺服器分析
+            }
+        }
 
-    // 廣告關閉功能
-    function closeAd(adId) {
-        document.getElementById(adId).style.display = "none";
-    }
-
-    // 跳到最下面
-    function scrollToBottom() {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-	
-	function confirmCloseAd(adId) {
-    let reason = prompt("請問您為什麼要關閉這則廣告？\n1. 不感興趣\n2. 擋到你看美食了\n3. 我就不想看廣告\n4. 其他");
-    
-    if (reason !== null) { 
-        document.getElementById(adId).style.display = "none";
-        console.log("使用者關閉廣告，原因：" + reason); // 可以將這個記錄發送到伺服器分析
-    }
-}
-
-    // 預設顯示第一頁
-    goToPage(1);
-</script>
+        // 預設顯示第一頁
+        goToPage(1);
+    </script>
 </body>
 </html>
 
