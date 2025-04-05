@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>美食探索趣</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fffaf5;
+    }
+
+    header {
+      background-color: #ff6f61;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .restaurant {
+      flex: 0 0 calc(25% - 15px); /* 每行顯示4個 */
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .restaurant:hover {
+      transform: scale(1.05);
+    }
+
+    .restaurant img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .restaurant h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .restaurant p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .pagination {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .pagination button {
+      margin: 0 5px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #eee;
+      cursor: pointer;
+    }
+
+    .pagination button.active {
+      background-color: #ff6f61;
+      color: white;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 20px;
+      bottom: 30px;
+      padding: 10px 15px;
+      font-size: 14px;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      display: none;
+      z-index: 999;
+    }
+
+    /* RWD */
+    @media screen and (max-width: 768px) {
+      .restaurant {
+        flex: 0 0 calc(48% - 10px); /* 每行顯示2個 */
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .restaurant {
+        flex: 0 0 100%; /* 每行顯示1個 */
+      }
+    }
+
+    /* Pagination at bottom */
+    #pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>🍱 小琉球美食</header>
+
+<div class="container" id="restaurant-list">
+  <!-- 這裡添加餐廳資料 -->
+  <!-- 範例餐廳 -->
+  <div class="restaurant">
+    <a href="https://www.cloudbnb.com.tw/travel-detail/71/" target="_blank">
+      <img src="https://www.welcometw.com/wp-content/uploads/2022/06/%E5%B0%8F%E7%90%89%E7%90%83%E4%BA%94%E9%BB%9E%E7%87%92%E7%83%A4.jpg">
+      <h3>五點燒烤</h3>
+      <p>
+        <a href="https://www.google.com/maps?q=屏東縣琉球鄉復興路161-52號" target="_blank">
+          屏東縣琉球鄉復興路161-52號
+        </a>
+      </p>
+      <p>周一到日 17:00-20:30</p>
+    </a>
+  </div>
+  <!-- 你可以依此方式再添加其他餐廳 -->
+  <div class="restaurant">
+    <a href="https://www.cloudbnb.com.tw/travel-detail/84/" target="_blank">
+      <img src="https://lh3.googleusercontent.com/p/AF1QipMi8JXEEiaIYgOv3Xs5nXJCYshT5p2gPVc4KMYM=s680-w680-h510">
+      <h3>廟口鹹酥雞</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/nquvCVmbY8ix5gah8" target="_blank">
+          屏東縣琉球鄉三民路288號
+        </a>
+      </p>
+      <p>周一到日 18:30-22:00</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://lealea0614.pixnet.net/blog/post/353488542" target="_blank">
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/AB5caB_T50ep9NLCGoggsb3wcSmQihJFcF9u_iJDVUr5zp192fwxC60CsOI-BNypJs5pijpXKpv0L1mMeQOshjmUefeAVZubMgYnrkd05IOCgsvxP7GJjX1hBc3F1prj_I_dXShZp91UqQ=w243-h174-n-k-no-nu">
+      <h3>紐約客炸雞</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/nEKB62zFS4B35JDCA" target="_blank">
+          屏東縣琉球鄉民生路30號
+        </a>
+      </p>
+      <p>周一到日 15:00-22:00</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://www.goodthai.com.tw/" target="_blank">
+      <img src="https://lh3.googleusercontent.com/p/AF1QipP_fogY9scwz8fUrsqtwm2_7ywaqdI0gbt3xSMx=s680-w680-h510">
+      <h3>穀泰Good Thai小琉球泰式餐飲</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/8Hun6DPQ7os8hGyT9" target="_blank">
+          屏東縣琉球鄉中正路192-2號
+        </a>
+      </p>
+      <p>周一到日中午11:00-14:00<br>晚上17:00-21:00</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://boo2k.com/archives/288" target="_blank">
+      <img src="https://i0.wp.com/boo2k.com/wp-content/uploads/2775/09/2K4A5391.jpg?resize=860%2C573&ssl=1">
+      <h3>東華海產店</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/n6VEM2GSkTTASZBt6" target="_blank">
+          屏東縣琉球鄉仁愛路96之6號
+        </a>
+      </p>
+      <p>周一到日中午11:00-13:00<br>晚上17:30-19:00(週三休)</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://tenjo.tw/xiangsimian/" target="_blank">
+      <img src="https://tenjo.tw/wp-content/uploads/20210111203433_5.jpg">
+      <h3>相思麵</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/Nh1uY8rQbywUjJDGA" target="_blank">
+          屏東縣琉球鄉上杉路31巷7號
+        </a>
+      </p>
+      <p>周一到日 8:00-14:00</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://bigmouthblog.tw/blog/post/202503011" target="_blank">
+      <img src="https://lh3.googleusercontent.com/p/AF1QipNnPGQpxfSgw_YSoF3kglBMDMUsfprf4Ikx2YKr=s680-w680-h510">
+      <h3>高記在地小吃</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/P2QfqYGt8fbXMWeF7" target="_blank">
+          屏東縣琉球鄉中山路58-1號
+        </a>
+      </p>
+      <p>周一到日中午10:00-14:00<br>晚上17:00-20:00</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://sweetday.tw/%E5%B0%8F%E7%90%89%E7%90%83%E7%BE%8E%E9%A3%9F%EF%BD%9C%E8%80%81%E6%9D%8E%E8%94%A5%E6%B2%B9%E9%A4%85/" target="_blank">
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/AB5caB-5tjHWmXXW6UwvSAeIWb4ZC3Y8v3nMEXHMaGzOywce4XElV_l1tNGJ2CJ80O4MoJgycR3RYLm2oM1XymQM78fOYIp1ljTKFcr0qMe3bhvaiV2IhjZbloTHNcht_QEIevvEemyq=s680-w680-h510">
+      <h3>老李蔥油餅</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/KHKSKrBXcywdmiWv5" target="_blank" onclick="showImage()">
+          屏東縣琉球鄉民生路
+        </a>
+      </p>
+      <p>周一到日 11:00-20:00</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://tenjo.tw/laijia-snowice/" target="_blank">
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/AB5caB_0Mvddhqi793fVYhOhcA1Ef6DgF7fjPLwEXvlJHKdUGQmGxR41SQibCQfYD_pTW6eMQDBRkCtsOdjb0YhfFqqR_NfNU1M89D7dh1jtAJo5i_Nh2SDGHJtBPX3xRDTB5Del70yk=s680-w680-h510">
+      <h3>來這吃冰吧</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/Xo2wd2NiuUJFfcDJ9" target="_blank">
+          屏東縣琉球鄉民生路38號
+        </a>
+      </p>
+      <p>周五六日11:00-19:00<br>周一二11:00-19:00(周二三休)</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://tenjo.tw/seaside-cafe/" target="_blank">
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/AB5caB9jq1a6aQvF4Z1Ee6sy8cJP6UXvPZboF22lPRYVdnqOGSCoa33ecy0ENSmuv4Z1ANPV5Z3wjWLJkdL52Z8ZvXd4tNXwl88oRScBwf0xhD-ZA9VdSY2mtToNZNZdZMC6xbyNKjqy=s680-w680-h510">
+      <h3>西晒咖啡Ｘ海龜燒</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/rMEXXX3qksdATgsVA" target="_blank">
+          屏東縣琉球鄉觀光港路30號
+        </a>
+      </p>
+      <p>周一到日11:00-17:00(週二休)</p>
+    </a>
+  </div>
+  
+  <div class="restaurant">
+    <a href="https://seadaze.tw/" target="_blank">
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/AB5caB9zH4fPlZbOyhZjih51Lv0pHSxmn5oEn33p3ACznbNXp8-JWovm2TjfBB5Yi41TuY3tAHfSE3In3ztxkywMjzrS7_MhEUd-2LUwwXT0sauFbdjv8-7ctemH65OgkXal-RDXh_nf=s680-w680-h510">
+      <h3>Sea Daze Liuqiu</h3>
+      <p>
+        <a href="https://maps.app.goo.gl/MWnkMHEoUqGDZ6Bt6" target="_blank">
+          屏東縣琉球鄉肚仔坪路13號
+        </a>
+      </p>
+      <p>周一到日 16:00-00:00</p>
+    </a>
+  </div>
+  
+</div>
+
+<div id="pagination" class="pagination"></div>
+<button class="back-to-top">回到最上面</button>
+
+<script>
+  const restaurantsPerPage = 8;
+  const restaurants = document.querySelectorAll('.restaurant');
+  const pagination = document.getElementById('pagination');
+  const totalRestaurants = restaurants.length;
+  const totalPages = Math.ceil(totalRestaurants / restaurantsPerPage);
+  let currentPage = 1;
+
+  function goToPage(pageNumber) {
+    currentPage = pageNumber;
+    const start = (pageNumber - 1) * restaurantsPerPage;
+    const end = start + restaurantsPerPage;
+
+    restaurants.forEach((restaurant, index) => {
+      if (index >= start && index < end) {
+        restaurant.style.display = 'inline-block';
+      } else {
+        restaurant.style.display = 'none';
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updatePaginationButtons();
+  }
+
+  function updatePaginationButtons() {
+    const paginationContainer = document.querySelector('#pagination');
+    paginationContainer.innerHTML = '';
+
+    const startPage = Math.max(currentPage - 2, 1);
+    const endPage = Math.min(currentPage + 2, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      const button = document.createElement('button');
+      button.textContent = i;
+      button.onclick = () => goToPage(i);
+      if (i === currentPage) button.classList.add('active');
+      paginationContainer.appendChild(button);
+    }
+	
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Prev';
+    prevButton.onclick = () => {
+      if (currentPage > 1) goToPage(currentPage - 1);
+    };
+
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.onclick = () => {
+      if (currentPage < totalPages) goToPage(currentPage + 1);
+    };
+
+    paginationContainer.insertBefore(prevButton, paginationContainer.firstChild);
+    paginationContainer.appendChild(nextButton);
+  }
+
+  window.addEventListener('scroll', function () {
+    let button = document.querySelector('.back-to-top');
+    if (window.scrollY > 300) {
+      button.style.display = 'block';
+    } else {
+      button.style.display = 'none';
+    }
+  });
+
+  document.querySelector('.back-to-top').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  goToPage(1);
+</script>
+
+</body>
+</html>
